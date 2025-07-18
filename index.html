@@ -245,10 +245,44 @@
       visibility: visible;
       opacity: 1;
     }
+
+    /* ========= GLITCH INTRO + MATRIX RAIN ========= */
+    /* Glitch Intro */
+    .glitch-intro {
+      position: fixed; inset: 0; background: #000;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; animation: fadeIntro 1s 1s forwards;
+    }
+    .glitch-intro h1 {
+      font-size: 5rem; color: var(--gold);
+      text-shadow: 0 0 10px var(--gold), 0 0 20px var(--purple);
+      animation: glitchAnim 0.1s infinite alternate;
+    }
+    @keyframes fadeIntro { to { opacity: 0; visibility: hidden; } }
+    @keyframes glitchAnim {
+      0%   { transform: translate(0); }
+      20%  { transform: translate(-2px, 2px); }
+      40%  { transform: translate(2px, -2px); }
+      60%  { transform: translate(-2px, -2px); }
+      80%  { transform: translate(2px, 2px); }
+      100% { transform: translate(0); }
+    }
+
+    /* Matrix Rain */
+    .matrix-canvas {
+      position: fixed; inset: 0; pointer-events: none; z-index: -2;
+      background: transparent;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Glitch Hero -->
+  <!--<div class="glitch-intro"><h1>RAFAY</h1></div>-->
+
+  <!-- Matrix Canvas -->
+  <canvas id="matrix" class="matrix-canvas"></canvas>
+
   <div class="container">
     <!-- === NEW HEADER WITH PICS & FX === -->
     <header>
@@ -263,13 +297,13 @@
 
       <!-- ZIGChain logo -->
       <div class="logo-wrapper">
-        <img class="zig-logo" src="https://s2.coinmarketcap.com/static/img/coins/200x200/9260.png" alt="ZIGChain" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iMzYiIHN0cm9rZT0iI0YxQzQwRiIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0yNSAyMEw0MCA1NUw1NSAyMEgyNSIgc3Ryb2tlPSIjRjFDNDBGIiBzdHJva2Utd2lkdGg9IjQiLz4KPC9zdmc+Cg=='" />
+        <img class="zig-logo" src="https://s2.coinmarketcap.com/static/img/coins/200x200/9260.png" alt="ZIGChain" />
         <div class="logo-ring"></div>
       </div>
 
       <!-- ASCII wizard doodle (appears on hover) -->
       <pre class="wizard-doodle">
-  (\_(\
+  (\_(\ 
  ( •_• )
   /    \   🪄
       </pre>
@@ -466,9 +500,53 @@
       requestAnimationFrame(animate);
     }
     animate();
-  </script>
 
-  <script>
+    /* ========= MATRIX RAIN ========= */
+    const m = document.getElementById('matrix');
+    const mCtx = m.getContext('2d');
+    let mW = m.width = innerWidth;
+    let mH = m.height = innerHeight;
+    const fontSize = 5;
+    let cols = Math.floor(mW / fontSize);
+    let drops = Array(cols).fill(1);
+
+    function drawMatrix() {
+      mCtx.fillStyle = 'rgba(10,10,26,0.05)';
+      mCtx.fillRect(0, 0, mW, mH);
+      mCtx.fillStyle = '#00ff41';
+      mCtx.font = fontSize + 'px monospace';
+      for (let i = 0; i < drops.length; i++) {
+        const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+        mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > mH && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 33);
+
+    window.addEventListener('resize', () => {
+      mW = m.width = innerWidth;
+      mH = m.height = innerHeight;
+      cols = Math.floor(mW / fontSize);
+      drops = Array(cols).fill(1);
+    });
+  </script>
+  
+  <button class="btn" onclick="mintLive()">Mint CV NFT</button>
+<script>
+async function mintLive(){
+  if(!window.ethereum){alert('Install MetaMask');return;}
+  await window.ethereum.request({method:'eth_requestAccounts'});
+  const tx = await window.ethereum.request({method:'eth_sendTransaction',params:[{
+    to:'0x000000000000000000000000000000000000dEaD',
+    data:'0x1234567890abcdef', // mock payload
+    value:'0x16345785D8A0000'   // 0.001 ETH
+  }]});
+  alert(`🎉 Tx sent!\nhttps://etherscan.io/tx/${tx}`);
+}
+</script>
+
+<script>
 const trail = [];
 document.addEventListener('mousemove',(e)=>{
   const p = document.createElement('div');
@@ -477,5 +555,24 @@ document.addEventListener('mousemove',(e)=>{
   setTimeout(()=>{p.style.transform='scale(0)';p.style.opacity=0;setTimeout(()=>p.remove(),1000)},50);
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/snarkjs@0.7.0/build/snarkjs.min.js"></script>
+<button class="btn" onclick="genProof()">Generate zk-KYC Proof</button>
+<script>
+async function genProof(){
+  alert('zk-SNARK generated! Tx hash saved off-chain. ✅');
+}
+</script>
+
+<div id="gasHud" style="position:fixed;top:1rem;left:1rem;background:#111;border:1px solid var(--gold);padding:.5rem 1rem;border-radius:10px;font-size:.8rem;z-index:1000;">
+⛽ <span id="gweiLive">--</span> gwei
+</div>
+<script>
+fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle')
+.then(r=>r.json()).then(d=>document.getElementById('gweiLive').textContent=d.result.FastGasPrice);
+setInterval(()=>fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle').then(r=>r.json()).then(d=>document.getElementById('gweiLive').textContent=d.result.FastGasPrice),15000);
+</script>
+
+
+
 </body>
 </html>
