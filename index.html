@@ -467,5 +467,15 @@
     }
     animate();
   </script>
+
+  <script>
+const trail = [];
+document.addEventListener('mousemove',(e)=>{
+  const p = document.createElement('div');
+  p.style.cssText='position:fixed;top:'+e.clientY+'px;left:'+e.clientX+'px;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;transition:1s;opacity:1;';
+  document.body.appendChild(p);
+  setTimeout(()=>{p.style.transform='scale(0)';p.style.opacity=0;setTimeout(()=>p.remove(),1000)},50);
+});
+</script>
 </body>
 </html>
