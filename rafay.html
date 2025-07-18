@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABDUL RAFAY GADIT - The $ZIG Wizard</title>
+  <style>
+    /* === GLASS MORPHISM STYLES === */
+    :root {
+      --purple: #9B59B6;
+      --gold: #F1C40F;
+      --bg: #0A0A1A;
+    }
+    body {
+      background: var(--bg);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+      transition: all 0.5s;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s;
+    }
+    .glass-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold);
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* === CRYPTO THEME ELEMENTS === */
+    .token {
+      width: 20px;
+      height: 20px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0 5px;
+    }
+    .zig-price {
+      font-weight: bold;
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+    }
+    .price-change {
+      font-size: 0.8em;
+      margin-left: 5px;
+    }
+    .up {
+      color: #2ecc71;
+    }
+    .down {
+      color: #e74c3c;
+    }
+
+    /* === HEADER STYLES === */
+    header {
+      position: relative;
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-top: 2rem;
+    }
+
+    /* Profile picture */
+    .profile-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+      transition: transform 0.3s;
+    }
+    .profile-glow {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(var(--gold), var(--purple), var(--gold));
+      filter: blur(12px);
+      opacity: 0.7;
+      animation: spin 6s linear infinite;
+      z-index: -1;
+    }
+    .profile-wrapper:hover .profile-img {
+      transform: scale(1.08);
+    }
+
+    /* ZIGChain logo */
+    .logo-wrapper {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 80px;
+      height: 80px;
+    }
+    .zig-logo {
+      width: 100%;
+      filter: drop-shadow(0 0 6px var(--gold));
+    }
+    .logo-ring {
+      position: absolute;
+      inset: -8px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      animation: pulse-ring 2s infinite;
+    }
+
+    /* Wizard doodle */
+    .wizard-doodle {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: var(--purple);
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    header:hover .wizard-doodle {
+      opacity: 1;
+    }
+
+    /* Animations */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulse-ring {
+      0%   { transform: scale(1);   opacity: 1; }
+      100% { transform: scale(1.25); opacity: 0; }
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .logo-wrapper { width: 60px; height: 60px; top: 0.5rem; right: 0.5rem; }
+      .profile-img { width: 90px; height: 90px; }
+      .wizard-doodle { display: none; }
+    }
+
+    /* === LINK STYLES === */
+    a {
+      color: var(--gold);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    a:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+
+    /* === SECTION STYLES === */
+    h2 {
+      color: var(--gold);
+      margin-top: 0;
+      position: relative;
+      display: inline-block;
+    }
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--purple);
+    }
+    h3 {
+      margin-bottom: 0.5rem;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* === BUTTON STYLES === */
+    .btn {
+      background: linear-gradient(135deg, var(--purple), #8e44ad);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+    }
+
+    /* === TOOLTIP === */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: help;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- === NEW HEADER WITH PICS & FX === -->
+    <header>
+      <!-- Background canvas for particle FX -->
+      <canvas id="zigCanvas" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
+
+      <!-- Profile pic -->
+      <div class="profile-wrapper">
+        <img class="profile-img" src="https://pbs.twimg.com/profile_images/1832043640941576192/7pr4J43j_400x400.jpg" alt="Rafay" />
+        <div class="profile-glow"></div>
+      </div>
+
+      <!-- ZIGChain logo -->
+      <div class="logo-wrapper">
+        <img class="zig-logo" src="https://s2.coinmarketcap.com/static/img/coins/200x200/9260.png" alt="ZIGChain" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iMzYiIHN0cm9rZT0iI0YxQzQwRiIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0yNSAyMEw0MCA1NUw1NSAyMEgyNSIgc3Ryb2tlPSIjRjFDNDBGIiBzdHJva2Utd2lkdGg9IjQiLz4KPC9zdmc+Cg=='" />
+        <div class="logo-ring"></div>
+      </div>
+
+      <!-- ASCII wizard doodle (appears on hover) -->
+      <pre class="wizard-doodle">
+  (\_(\
+ ( •_• )
+  /    \   🪄
+      </pre>
+
+      <!-- Titles -->
+      <h1>ABDUL RAFAY GADIT</h1>
+      <p class="subtitle">
+        The <span class="zig-price">$ZIG <span id="zigValue">3.27</span>
+        <span id="zigChange" class="price-change up">+2.4%</span></span> Wizard Unlocking Wealth for All
+      </p>
+      <p class="contact">
+        📍 Dubai |
+        <a href="mailto:rafay@zigchain.com">rafay@zigchain.com</a> |
+        <a href="https://x.com/ARafayGadit" target="_blank">@ARafayGadit</a> |
+        <a href="https://zigchain.com" target="_blank">zigchain.com</a>
+      </p>
+      <div class="floating" style="font-size: 2rem;">🚀</div>
+    </header>
+
+    <!-- ABOUT ME -->
+    <div class="glass-card">
+      <h2>Who TF Am I?</h2>
+      <p>Turning <b>$16T</b> in real-world assets into tokenized gold by 2030. <span class="tooltip">ℹ️<span class="tooltiptext">Real World Asset tokenization market projection</span></span></p>
+      <p><b>Shariah-compliant DeFi</b> | RWA Magic | $100M Ecosystem Fund</p>
+      <p><em>"Money's made when markets are boring—so I make it exciting AF."</em></p>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="glass-card">
+      <h2>What I Hustle</h2>
+      
+      <h3>Co-Founder – ZIGChain (2020–Now)</h3>
+      <ul>
+        <li>Built Layer 1 blockchain + Zamanat for RWA tokenization</li>
+        <li>Raised <b>$125M</b>, launched AI-DeFi tools, partnered with Oroswap & Nawa</li>
+        <li>Mainnet Beta (June 2025) → <span class="zig-price">$ZIG</span> spiked <b>11% overnight</b></li>
+        <li>Mission: <b>$2Bn TVL incoming</b> <span class="token"></span><span class="token"></span><span class="token"></span></li>
+      </ul>
+
+      <h3>Managing Partner – ZigLabs (2019–Now)</h3>
+      <ul>
+        <li>Fusing AI + blockchain for next-level DeFi innovation</li>
+        <li>Kickstart incubator → birthing killer dApps</li>
+        <li>Tokenizing UAE real estate (Ellington Properties)</li>
+      </ul>
+    </div>
+
+    <!-- EPIC WINS -->
+    <div class="glass-card">
+      <h2>Milestones That Mooned</h2>
+      <ul>
+        <li><b>ZIGChain Summit 2025</b> → Zamanat + $25M DeFAI Fund unveiled</li>
+        <li>Secured <b>$125M</b> to power the ZIGChain empire</li>
+        <li>Built Shariah-compliant RWA beast targeting <b>$4T market</b></li>
+      </ul>
+    </div>
+
+    <!-- SUPERPOWERS -->
+    <div class="glass-card">
+      <h2>My Crypto Toolkit</h2>
+      <ul>
+        <li><b>Blockchain Boss:</b> Layer 1 dev & RWA tokenization</li>
+        <li><b>Fundraise King:</b> $125M+ from top VCs</li>
+        <li><b>AI-DeFi Alchemist:</b> Building smart wealth automation tools</li>
+        <li><b>Hype Machine:</b> Rallying the $ZIG Fam daily</li>
+      </ul>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="glass-card">
+      <h2>The Genesis</h2>
+      <p>B.Sc. Business & Technology | University of Karachi (2010–2014)</p>
+    </div>
+
+    <!-- THE PITCH -->
+    <div class="glass-card">
+      <h2>Why Pick Me?</h2>
+      <p>I'm building the biggest wealth infra in Web3—bridging TradFi boomers with DeFi degens. No BS. Just real value.</p>
+      <p>DM me <a href="https://x.com/ARafayGadit" target="_blank">@ARafayGadit</a>. LFG.</p>
+    </div>
+
+    <!-- INTERACTIVE ELEMENTS -->
+    <div class="glass-card" id="wallet-section">
+      <h2>DeFi Mode Activated</h2>
+      <p>Connect your wallet to unlock secret alpha:</p>
+      <button id="connectWallet" class="btn">Connect Wallet</button>
+      <div id="secretContent" style="display: none; margin-top: 1rem;">
+        <p>🔥 <b>Alpha Unlocked:</b> You're now viewing the <span class="zig-price">$ZIG</span> master dashboard.</p>
+        <div id="walletDetails"></div>
+      </div>
+    </div>
+
+    <!-- EASTER EGG -->
+    <div class="glass-card">
+      <p class="pulse">💎 Type "halal" anywhere for a surprise...</p>
+    </div>
+  </div>
+
+  <script>
+    // === LIVE $ZIG PRICE SIMULATION ===
+    const zigValue = document.getElementById('zigValue');
+    const zigChange = document.getElementById('zigChange');
+    let price = 3.27;
+    let change = 2.4;
+
+    function updatePrice() {
+      const randomChange = (Math.random() * 3 - 1.5);
+      price = Math.max(0.1, price + randomChange * 0.05);
+      change = Math.max(-10, Math.min(10, change + randomChange * 0.3));
+      
+      zigValue.textContent = price.toFixed(2);
+      zigChange.textContent = (change > 0 ? '+' : '') + change.toFixed(1) + '%';
+      
+      if (change > 0) {
+        zigChange.className = 'price-change up';
+      } else {
+        zigChange.className = 'price-change down';
+      }
+    }
+    setInterval(updatePrice, 3000);
+
+    // === WALLET CONNECTION ===
+    document.getElementById('connectWallet').addEventListener('click', function() {
+      this.textContent = 'Connecting...';
+      setTimeout(() => {
+        this.textContent = 'Connected ✅';
+        document.getElementById('secretContent').style.display = 'block';
+        document.getElementById('walletDetails').innerHTML = `
+          <p>🔒 <b>Wallet Address:</b> 0x1a2...b3c4</p>
+          <p>💰 <b>$ZIG Balance:</b> ${Math.floor(Math.random() * 10000)}</p>
+          <p>🏆 <b>Access Level:</b> Diamond Hands</p>
+        `;
+      }, 1000);
+    });
+
+    // === EASTER EGG ===
+    let typed = '';
+    document.addEventListener('keydown', (e) => {
+      typed += e.key.toLowerCase();
+      if (typed.includes('halal')) {
+        document.body.style.background = 'linear-gradient(135deg, #1abc9c, #3498db)';
+        document.querySelectorAll('.glass-card').forEach(card => {
+          card.style.background = 'rgba(26, 188, 156, 0.1)';
+          card.style.borderColor = '#3498db';
+        });
+        document.querySelectorAll('h2').forEach(h => h.style.color = '#1abc9c');
+        alert('🕌 Halal mode engaged! Shariah-compliant browsing activated.');
+        typed = '';
+      }
+    });
+
+    // === TOKEN ANIMATION ===
+    const tokens = document.querySelectorAll('.token');
+    tokens.forEach((token, i) => {
+      token.style.animation = `float ${3 + i}s ease-in-out infinite`;
+    });
+
+    // === PARTICLE CANVAS ===
+    const canvas = document.getElementById('zigCanvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    function resize() {
+      w = canvas.width = innerWidth;
+      h = canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    class Particle {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.r = Math.random() * 1.2 + 0.5;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(241,196,15,0.4)';
+        ctx.fill();
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > w) this.vx *= -1;
+        if (this.y < 0 || this.y > h) this.vy *= -1;
+        this.draw();
+      }
+    }
+    for (let i = 0; i < 60; i++) particles.push(new Particle());
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => p.update());
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
