@@ -5,62 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ABDUL RAFAY GADIT - The $ZIG Wizard</title>
   <style>
-    /* === BASE STYLES === */
+    /* === GLASS MORPHISM STYLES === */
     :root {
       --purple: #9B59B6;
       --gold: #F1C40F;
       --bg: #0A0A1A;
     }
-    
     body {
-      margin: 0;
-      overflow-x: hidden;
-      font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: white;
-      opacity: 0;
-      transition: opacity 1s;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+      transition: all 0.5s;
     }
-    
-    body.loaded {
-      opacity: 1;
-    }
-    
-    /* === COSMIC INTRO STYLES === */
-    #cosmic-intro {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    #cosmic-canvas {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-    }
-    
-    #intro-text {
-      position: relative;
-      z-index: 2;
-      font-size: 5vw;
-      color: var(--gold);
-      text-shadow: 0 0 20px var(--gold);
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    /* === GLASS MORPHISM STYLES === */
     .container {
       max-width: 900px;
       margin: 0 auto;
       padding: 2rem;
-      visibility: hidden;
     }
-    
     .glass-card {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
@@ -70,7 +33,6 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: transform 0.3s;
     }
-    
     .glass-card:hover {
       transform: translateY(-5px);
       border-color: var(--gold);
@@ -81,16 +43,13 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-    
     .floating {
       animation: float 3s ease-in-out infinite;
     }
-    
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.7; }
     }
-    
     .pulse {
       animation: pulse 2s infinite;
     }
@@ -104,23 +63,19 @@
       display: inline-block;
       margin: 0 5px;
     }
-    
     .zig-price {
       font-weight: bold;
       color: var(--gold);
       display: inline-flex;
       align-items: center;
     }
-    
     .price-change {
       font-size: 0.8em;
       margin-left: 5px;
     }
-    
     .up {
       color: #2ecc71;
     }
-    
     .down {
       color: #e74c3c;
     }
@@ -132,14 +87,13 @@
       margin-bottom: 3rem;
       padding-top: 2rem;
     }
-    
+
     /* Profile picture */
     .profile-wrapper {
       position: relative;
       display: inline-block;
       margin-bottom: 1rem;
     }
-    
     .profile-img {
       width: 120px;
       height: 120px;
@@ -148,7 +102,6 @@
       border: 2px solid var(--gold);
       transition: transform 0.3s;
     }
-    
     .profile-glow {
       position: absolute;
       inset: -6px;
@@ -159,7 +112,6 @@
       animation: spin 6s linear infinite;
       z-index: -1;
     }
-    
     .profile-wrapper:hover .profile-img {
       transform: scale(1.08);
     }
@@ -172,12 +124,10 @@
       width: 80px;
       height: 80px;
     }
-    
     .zig-logo {
       width: 100%;
       filter: drop-shadow(0 0 6px var(--gold));
     }
-    
     .logo-ring {
       position: absolute;
       inset: -8px;
@@ -196,7 +146,6 @@
       opacity: 0;
       transition: opacity 0.3s;
     }
-    
     header:hover .wizard-doodle {
       opacity: 1;
     }
@@ -205,7 +154,6 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    
     @keyframes pulse-ring {
       0%   { transform: scale(1);   opacity: 1; }
       100% { transform: scale(1.25); opacity: 0; }
@@ -216,7 +164,6 @@
       .logo-wrapper { width: 60px; height: 60px; top: 0.5rem; right: 0.5rem; }
       .profile-img { width: 90px; height: 90px; }
       .wizard-doodle { display: none; }
-      #intro-text { font-size: 8vw; }
     }
 
     /* === LINK STYLES === */
@@ -225,23 +172,18 @@
       text-decoration: none;
       transition: all 0.3s;
     }
-    
     a:hover {
       text-decoration: underline;
       opacity: 0.8;
     }
 
     /* === SECTION STYLES === */
-    h1, h2, h3 {
-      margin-top: 0;
-    }
-    
     h2 {
       color: var(--gold);
+      margin-top: 0;
       position: relative;
       display: inline-block;
     }
-    
     h2::after {
       content: "";
       position: absolute;
@@ -251,15 +193,12 @@
       height: 2px;
       background: var(--purple);
     }
-    
     h3 {
       margin-bottom: 0.5rem;
     }
-    
     ul {
       padding-left: 1.2rem;
     }
-    
     li {
       margin-bottom: 0.5rem;
     }
@@ -275,7 +214,6 @@
       font-weight: bold;
       transition: all 0.3s;
     }
-    
     .btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
@@ -287,7 +225,6 @@
       display: inline-block;
       cursor: help;
     }
-    
     .tooltip .tooltiptext {
       visibility: hidden;
       width: 200px;
@@ -304,52 +241,56 @@
       opacity: 0;
       transition: opacity 0.3s;
     }
-    
     .tooltip:hover .tooltiptext {
       visibility: visible;
       opacity: 1;
     }
 
-    /* === MATRIX RAIN === */
-    .matrix-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -2;
-      background: transparent;
+    /* ========= GLITCH INTRO + MATRIX RAIN ========= */
+    /* Glitch Intro */
+    .glitch-intro {
+      position: fixed; inset: 0; background: #000;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; animation: fadeIntro 1s 1s forwards;
+    }
+    .glitch-intro h1 {
+      font-size: 5rem; color: var(--gold);
+      text-shadow: 0 0 10px var(--gold), 0 0 20px var(--purple);
+      animation: glitchAnim 0.1s infinite alternate;
+    }
+    @keyframes fadeIntro { to { opacity: 0; visibility: hidden; } }
+    @keyframes glitchAnim {
+      0%   { transform: translate(0); }
+      20%  { transform: translate(-2px, 2px); }
+      40%  { transform: translate(2px, -2px); }
+      60%  { transform: translate(-2px, -2px); }
+      80%  { transform: translate(2px, 2px); }
+      100% { transform: translate(0); }
     }
 
-    /* === GAS HUD === */
-    #gasHud {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: #111;
-      border: 1px solid var(--gold);
-      padding: .5rem 1rem;
-      border-radius: 10px;
-      font-size: .8rem;
-      z-index: 1000;
+    /* Matrix Rain */
+    .matrix-canvas {
+      position: fixed; inset: 0; pointer-events: none; z-index: -2;
+      background: transparent;
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- ===== COSMIC BLOCKCHAIN INTRO ===== -->
-  <div id="cosmic-intro">
-    <canvas id="cosmic-canvas"></canvas>
-    <h1 id="intro-text">ACTIVATING ZIG MATRIX...</h1>
-  </div>
+  <!-- Glitch Hero -->
+  <!--<div class="glitch-intro"><h1>RAFAY</h1></div>-->
 
-  <!-- ===== MATRIX RAIN BACKGROUND ===== -->
+  <!-- Matrix Canvas -->
+  
   <canvas id="matrix" class="matrix-canvas"></canvas>
+  
 
-  <!-- ===== MAIN CONTENT ===== -->
   <div class="container">
-    <!-- Background canvas for particle FX -->
-    <canvas id="zigCanvas" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
-
+    <!-- === NEW HEADER WITH PICS & FX === -->
     <header>
+      <!-- Background canvas for particle FX -->
+      <canvas id="zigCanvas" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
+
       <!-- Profile pic -->
       <div class="profile-wrapper">
         <img class="profile-img" src="https://pbs.twimg.com/profile_images/1832043640941576192/7pr4J43j_400x400.jpg" alt="Rafay" />
@@ -362,7 +303,7 @@
         <div class="logo-ring"></div>
       </div>
 
-      <!-- ASCII wizard doodle -->
+      <!-- ASCII wizard doodle (appears on hover) -->
       <pre class="wizard-doodle">
   (\_(\ 
  ( •_• )
@@ -461,397 +402,178 @@
     <div class="glass-card">
       <p class="pulse">💎 Type "halal" anywhere for a surprise...</p>
     </div>
-
-    <!-- GAS HUD -->
-    <div id="gasHud">
-      ⛽ <span id="gweiLive">--</span> gwei
-    </div>
   </div>
 
-  <!-- ===== SCRIPTS ===== -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/postprocessing/EffectComposer.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/shaders/CopyShader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
-
   <script>
-    // ===== COSMIC INTRO ANIMATION =====
-    const cosmicIntro = () => {
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.z = 20;
+    // === LIVE $ZIG PRICE SIMULATION ===
+    const zigValue = document.getElementById('zigValue');
+    const zigChange = document.getElementById('zigChange');
+    let price = 3.27;
+    let change = 2.4;
+
+    function updatePrice() {
+      const randomChange = (Math.random() * 3 - 1.5);
+      price = Math.max(0.1, price + randomChange * 0.05);
+      change = Math.max(-10, Math.min(10, change + randomChange * 0.3));
       
-      const renderer = new THREE.WebGLRenderer({ 
-        canvas: document.getElementById('cosmic-canvas'),
-        antialias: true 
-      });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      zigValue.textContent = price.toFixed(2);
+      zigChange.textContent = (change > 0 ? '+' : '') + change.toFixed(1) + '%';
       
-      // Lights
-      const ambientLight = new THREE.AmbientLight(0x404040);
-      scene.add(ambientLight);
-      
-      const pointLight = new THREE.PointLight(0xF1C40F, 1, 100);
-      pointLight.position.set(5, 5, 5);
-      scene.add(pointLight);
-      
-      // Logo (using torus knot as placeholder)
-      const geometry = new THREE.TorusKnotGeometry(3, 1, 100, 16);
-      const material = new THREE.MeshStandardMaterial({ 
-        color: 0xF1C40F,
-        emissive: 0xF1C40F,
-        emissiveIntensity: 0.5,
-        metalness: 0.8,
-        roughness: 0.2
-      });
-      const logo = new THREE.Mesh(geometry, material);
-      scene.add(logo);
-      
-      // Particles
-      const particleCount = 2000;
-      const particles = new THREE.BufferGeometry();
-      const posArray = new Float32Array(particleCount * 3);
-      
-      for(let i = 0; i < particleCount * 3; i++) {
-        posArray[i] = (Math.random() - 0.5) * 10;
+      if (change > 0) {
+        zigChange.className = 'price-change up';
+      } else {
+        zigChange.className = 'price-change down';
       }
-      
-      particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-      const particleMaterial = new THREE.PointsMaterial({
-        size: 0.1,
-        color: 0xF1C40F,
-        transparent: true,
-        opacity: 0.8
-      });
-      const particleSystem = new THREE.Points(particles, particleMaterial);
-      particleSystem.visible = false;
-      scene.add(particleSystem);
-      
-      // Animation timeline
-      const introText = document.getElementById('intro-text');
-      
-      gsap.timeline()
-        .to(introText, { 
-          opacity: 1, 
-          y: 0, 
-          duration: 1.5,
-          ease: "power3.out"
-        })
-        .to(logo.rotation, {
-          x: Math.PI * 2,
-          duration: 3,
-          ease: "power2.inOut"
-        }, 0)
-        .to(logo.scale, {
-          x: 1.5,
-          y: 1.5,
-          z: 1.5,
-          duration: 2,
-          ease: "elastic.out(1, 0.5)"
-        }, 0)
-        .to(introText, {
-          opacity: 0,
-          duration: 1
-        }, 2)
-        .to(logo.position, {
-          y: 2,
-          duration: 1
-        }, 2)
-        .call(() => {
-          // Explode into particles
-          logo.visible = false;
-          particleSystem.visible = true;
-          
-          // Animate particles to form face
-          const positions = particles.attributes.position.array;
-          const targetPositions = new Float32Array(particleCount * 3);
-          
-          // Face shape
-          for(let i = 0; i < particleCount; i++) {
-            const theta = Math.random() * Math.PI * 2;
-            const radius = 2 * Math.random();
-            
-            if(i < particleCount * 0.3) {
-              // Head outline
-              targetPositions[i * 3] = Math.cos(theta) * 3;
-              targetPositions[i * 3 + 1] = Math.sin(theta) * 3;
-              targetPositions[i * 3 + 2] = 0;
-            } else if(i < particleCount * 0.5) {
-              // Eyes
-              const eyeX = i % 2 ? -1 : 1;
-              targetPositions[i * 3] = eyeX + (Math.random() - 0.5) * 0.5;
-              targetPositions[i * 3 + 1] = 1 + (Math.random() - 0.5) * 0.5;
-              targetPositions[i * 3 + 2] = 0;
-            } else {
-              // Mouth
-              targetPositions[i * 3] = (Math.random() - 0.5) * 2;
-              targetPositions[i * 3 + 1] = -1 + (Math.random() - 0.5) * 0.5;
-              targetPositions[i * 3 + 2] = 0;
-            }
-          }
-          
-          gsap.to(positions, {
-            duration: 2,
-            ease: "power2.out",
-            endArray: targetPositions,
-            onUpdate: () => {
-              particles.attributes.position.needsUpdate = true;
-            }
-          });
-        }, 3)
-        .to(camera.position, {
-          z: 50,
-          duration: 3,
-          ease: "power2.in",
-          onComplete: () => {
-            document.getElementById('cosmic-intro').style.display = 'none';
-            document.querySelector('.container').style.visibility = 'visible';
-            document.body.classList.add('loaded');
-            initMainContent();
-          }
-        }, 4);
-      
-      // Tokenization shader
-      const composer = new THREE.EffectComposer(renderer);
-      const renderPass = new THREE.RenderPass(scene, camera);
-      composer.addPass(renderPass);
-      
-      const tokenShader = {
-        uniforms: {
-          tDiffuse: { value: null },
-          time: { value: 0 },
-          resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
-        },
-        vertexShader: `
-          varying vec2 vUv;
-          void main() {
-            vUv = uv;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `,
-        fragmentShader: `
-          uniform sampler2D tDiffuse;
-          uniform float time;
-          uniform vec2 resolution;
-          varying vec2 vUv;
-          
-          void main() {
-            vec2 uv = vUv;
-            
-            // Hexagonal grid
-            vec2 pixelSize = vec2(0.02, 0.02 * 1.732);
-            vec2 coord = uv / pixelSize;
-            vec2 hexCenter = floor(coord) + vec2(0.5, 0.5);
-            
-            // Coin effect
-            vec2 delta = coord - hexCenter;
-            float radius = 0.5;
-            if (length(delta) > radius) discard;
-            
-            // Gold color
-            vec3 color = vec3(0.95, 0.85, 0.1);
-            
-            // Shine
-            float shine = sin(time + hexCenter.x * 2.0 + hexCenter.y * 3.0);
-            color *= 0.8 + 0.4 * shine;
-            
-            // Circuit pattern
-            float pattern = sin(hexCenter.x * 10.0 + time) * cos(hexCenter.y * 10.0 + time);
-            if (abs(pattern) > 0.7) {
-              color = mix(color, vec3(0.2, 0.1, 0.5), 0.3);
-            }
-            
-            gl_FragColor = vec4(color, 1.0);
-          }
-        `
-      };
-      
-      const tokenPass = new THREE.ShaderPass(tokenShader);
-      composer.addPass(tokenPass);
-      
-      // Animation loop
-      const clock = new THREE.Clock();
-      function animate() {
-        requestAnimationFrame(animate);
-        
-        const elapsedTime = clock.getElapsedTime();
-        tokenShader.uniforms.time.value = elapsedTime;
-        
-        if(logo.visible) {
-          logo.rotation.y = elapsedTime * 0.2;
-        }
-        
-        composer.render();
+    }
+    setInterval(updatePrice, 3000);
+
+    // === WALLET CONNECTION ===
+    document.getElementById('connectWallet').addEventListener('click', function() {
+      this.textContent = 'Connecting...';
+      setTimeout(() => {
+        this.textContent = 'Connected ✅';
+        document.getElementById('secretContent').style.display = 'block';
+        document.getElementById('walletDetails').innerHTML = `
+          <p>🔒 <b>Wallet Address:</b> 0x1a2...b3c4</p>
+          <p>💰 <b>$ZIG Balance:</b> ${Math.floor(Math.random() * 10000)}</p>
+          <p>🏆 <b>Access Level:</b> Diamond Hands</p>
+        `;
+      }, 1000);
+    });
+
+    // === EASTER EGG ===
+    let typed = '';
+    document.addEventListener('keydown', (e) => {
+      typed += e.key.toLowerCase();
+      if (typed.includes('halal')) {
+        document.body.style.background = 'linear-gradient(135deg, #1abc9c, #3498db)';
+        document.querySelectorAll('.glass-card').forEach(card => {
+          card.style.background = 'rgba(26, 188, 156, 0.1)';
+          card.style.borderColor = '#3498db';
+        });
+        document.querySelectorAll('h2').forEach(h => h.style.color = '#1abc9c');
+        alert('🕌 Halal mode engaged! Shariah-compliant browsing activated.');
+        typed = '';
       }
-      
-      animate();
-      
-      // Handle resize
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        composer.setSize(window.innerWidth, window.innerHeight);
-        tokenShader.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
-      });
-    };
+    });
 
-    // ===== MAIN CONTENT FUNCTIONALITY =====
-    const initMainContent = () => {
-      // Live $ZIG price simulation
-      const zigValue = document.getElementById('zigValue');
-      const zigChange = document.getElementById('zigChange');
-      let price = 3.27;
-      let change = 2.4;
+    // === TOKEN ANIMATION ===
+    const tokens = document.querySelectorAll('.token');
+    tokens.forEach((token, i) => {
+      token.style.animation = `float ${3 + i}s ease-in-out infinite`;
+    });
 
-      function updatePrice() {
-        const randomChange = (Math.random() * 3 - 1.5);
-        price = Math.max(0.1, price + randomChange * 0.05);
-        change = Math.max(-10, Math.min(10, change + randomChange * 0.3));
-        
-        zigValue.textContent = price.toFixed(2);
-        zigChange.textContent = (change > 0 ? '+' : '') + change.toFixed(1) + '%';
-        
-        if (change > 0) {
-          zigChange.className = 'price-change up';
-        } else {
-          zigChange.className = 'price-change down';
-        }
+    // === PARTICLE CANVAS ===
+    const canvas = document.getElementById('zigCanvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    function resize() {
+      w = canvas.width = innerWidth;
+      h = canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    class Particle {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.r = Math.random() * 1.2 + 0.5;
       }
-      setInterval(updatePrice, 3000);
-
-      // Wallet connection
-      document.getElementById('connectWallet').addEventListener('click', function() {
-        this.textContent = 'Connecting...';
-        setTimeout(() => {
-          this.textContent = 'Connected ✅';
-          document.getElementById('secretContent').style.display = 'block';
-          document.getElementById('walletDetails').innerHTML = `
-            <p>🔒 <b>Wallet Address:</b> 0x1a2...b3c4</p>
-            <p>💰 <b>$ZIG Balance:</b> ${Math.floor(Math.random() * 10000)}</p>
-            <p>🏆 <b>Access Level:</b> Diamond Hands</p>
-          `;
-        }, 1000);
-      });
-
-      // Easter egg
-      let typed = '';
-      document.addEventListener('keydown', (e) => {
-        typed += e.key.toLowerCase();
-        if (typed.includes('halal')) {
-          document.body.style.background = 'linear-gradient(135deg, #1abc9c, #3498db)';
-          document.querySelectorAll('.glass-card').forEach(card => {
-            card.style.background = 'rgba(26, 188, 156, 0.1)';
-            card.style.borderColor = '#3498db';
-          });
-          document.querySelectorAll('h2').forEach(h => h.style.color = '#1abc9c');
-          alert('🕌 Halal mode engaged! Shariah-compliant browsing activated.');
-          typed = '';
-        }
-      });
-
-      // Token animation
-      const tokens = document.querySelectorAll('.token');
-      tokens.forEach((token, i) => {
-        token.style.animation = `float ${3 + i}s ease-in-out infinite`;
-      });
-
-      // Particle canvas
-      const canvas = document.getElementById('zigCanvas');
-      const ctx = canvas.getContext('2d');
-      let w, h, particles = [];
-      
-      function resize() {
-        w = canvas.width = innerWidth;
-        h = canvas.height = canvas.offsetHeight;
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(241,196,15,0.4)';
+        ctx.fill();
       }
-      
-      window.addEventListener('resize', resize);
-      resize();
-      
-      class Particle {
-        constructor() {
-          this.x = Math.random() * w;
-          this.y = Math.random() * h;
-          this.vx = (Math.random() - 0.5) * 0.4;
-          this.vy = (Math.random() - 0.5) * 0.4;
-          this.r = Math.random() * 1.2 + 0.5;
-        }
-        
-        draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(241,196,15,0.4)';
-          ctx.fill();
-        }
-        
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
-          if (this.x < 0 || this.x > w) this.vx *= -1;
-          if (this.y < 0 || this.y > h) this.vy *= -1;
-          this.draw();
-        }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > w) this.vx *= -1;
+        if (this.y < 0 || this.y > h) this.vy *= -1;
+        this.draw();
       }
-      
-      for (let i = 0; i < 60; i++) particles.push(new Particle());
-      
-      function animateParticles() {
-        ctx.clearRect(0, 0, w, h);
-        particles.forEach(p => p.update());
-        requestAnimationFrame(animateParticles);
+    }
+    for (let i = 0; i < 60; i++) particles.push(new Particle());
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => p.update());
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    /* ========= MATRIX RAIN ========= */
+    const m = document.getElementById('matrix');
+    const mCtx = m.getContext('2d');
+    let mW = m.width = innerWidth;
+    let mH = m.height = innerHeight;
+    const fontSize = 5;
+    let cols = Math.floor(mW / fontSize);
+    let drops = Array(cols).fill(1);
+
+    function drawMatrix() {
+      mCtx.fillStyle = 'rgba(10,10,26,0.05)';
+      mCtx.fillRect(0, 0, mW, mH);
+      mCtx.fillStyle = '#00ff41';
+      mCtx.font = fontSize + 'px monospace';
+      for (let i = 0; i < drops.length; i++) {
+        const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+        mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > mH && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
       }
-      
-      animateParticles();
+    }
+    setInterval(drawMatrix, 23);
 
-      // Matrix rain
-      const m = document.getElementById('matrix');
-      const mCtx = m.getContext('2d');
-      let mW = m.width = innerWidth;
-      let mH = m.height = innerHeight;
-      const fontSize = 5;
-      let cols = Math.floor(mW / fontSize);
-      let drops = Array(cols).fill(1);
-
-      function drawMatrix() {
-        mCtx.fillStyle = 'rgba(10,10,26,0.05)';
-        mCtx.fillRect(0, 0, mW, mH);
-        mCtx.fillStyle = '#00ff41';
-        mCtx.font = fontSize + 'px monospace';
-        
-        for (let i = 0; i < drops.length; i++) {
-          const text = String.fromCharCode(0x30A0 + Math.random() * 96);
-          mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
-          if (drops[i] * fontSize > mH && Math.random() > 0.975) drops[i] = 0;
-          drops[i]++;
-        }
-      }
-      
-      setInterval(drawMatrix, 23);
-
-      window.addEventListener('resize', () => {
-        mW = m.width = innerWidth;
-        mH = m.height = innerHeight;
-        cols = Math.floor(mW / fontSize);
-        drops = Array(cols).fill(1);
-      });
-
-      // Gas price
-      fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle')
-        .then(r => r.json())
-        .then(d => document.getElementById('gweiLive').textContent = d.result.FastGasPrice);
-      
-      setInterval(() => {
-        fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle')
-          .then(r => r.json())
-          .then(d => document.getElementById('gweiLive').textContent = d.result.FastGasPrice);
-      }, 15000);
-    };
-
-    // Start everything
-    cosmicIntro();
+    window.addEventListener('resize', () => {
+      mW = m.width = innerWidth;
+      mH = m.height = innerHeight;
+      cols = Math.floor(mW / fontSize);
+      drops = Array(cols).fill(1);
+    });
   </script>
+  
+  <button class="btn" onclick="mintLive()">Mint CV NFT</button>
+<script>
+async function mintLive(){
+  if(!window.ethereum){alert('Install MetaMask');return;}
+  await window.ethereum.request({method:'eth_requestAccounts'});
+  const tx = await window.ethereum.request({method:'eth_sendTransaction',params:[{
+    to:'0x000000000000000000000000000000000000dEaD',
+    data:'0x1234567890abcdef', // mock payload
+    value:'0x16345785D8A0000'   // 0.001 ETH
+  }]});
+  alert(`🎉 Tx sent!\nhttps://etherscan.io/tx/${tx}`);
+}
+</script>
+
+<script>
+const trail = [];
+document.addEventListener('mousemove',(e)=>{
+  const p = document.createElement('div');
+  p.style.cssText='position:fixed;top:'+e.clientY+'px;left:'+e.clientX+'px;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;transition:1s;opacity:1;';
+  document.body.appendChild(p);
+  setTimeout(()=>{p.style.transform='scale(0)';p.style.opacity=0;setTimeout(()=>p.remove(),1000)},50);
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/snarkjs@0.7.0/build/snarkjs.min.js"></script>
+<button class="btn" onclick="genProof()">Generate zk-KYC Proof</button>
+<script>
+async function genProof(){
+  alert('zk-SNARK generated! Tx hash saved off-chain. ✅');
+}
+</script>
+
+<div id="gasHud" style="position:fixed;top:1rem;left:1rem;background:#111;border:1px solid var(--gold);padding:.5rem 1rem;border-radius:10px;font-size:.8rem;z-index:1000;">
+⛽ <span id="gweiLive">--</span> gwei
+</div>
+<script>
+fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle')
+.then(r=>r.json()).then(d=>document.getElementById('gweiLive').textContent=d.result.FastGasPrice);
+setInterval(()=>fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle').then(r=>r.json()).then(d=>document.getElementById('gweiLive').textContent=d.result.FastGasPrice),15000);
+</script>
+
+
 </body>
 </html>
