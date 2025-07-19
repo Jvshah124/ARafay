@@ -706,4 +706,152 @@
       let price = 3.27;
       let change = 2.4;
 
-      func
+      function updatePrice() {
+        const randomChange = (Math.random() * 3 - 1.5);
+        price = Math.max(0.1, price + randomChange * 0.05);
+        change = Math.max(-10, Math.min(10, change + randomChange * 0.3));
+        
+        zigValue.textContent = price.toFixed(2);
+        zigChange.textContent = (change > 0 ? '+' : '') + change.toFixed(1) + '%';
+        
+        if (change > 0) {
+          zigChange.className = 'price-change up';
+        } else {
+          zigChange.className = 'price-change down';
+        }
+      }
+      setInterval(updatePrice, 3000);
+
+      // Wallet connection
+      document.getElementById('connectWallet').addEventListener('click', function() {
+        this.textContent = 'Connecting...';
+        setTimeout(() => {
+          this.textContent = 'Connected ✅';
+          document.getElementById('secretContent').style.display = 'block';
+          document.getElementById('walletDetails').innerHTML = `
+            <p>🔒 <b>Wallet Address:</b> 0x1a2...b3c4</p>
+            <p>💰 <b>$ZIG Balance:</b> ${Math.floor(Math.random() * 10000)}</p>
+            <p>🏆 <b>Access Level:</b> Diamond Hands</p>
+          `;
+        }, 1000);
+      });
+
+      // Easter egg
+      let typed = '';
+      document.addEventListener('keydown', (e) => {
+        typed += e.key.toLowerCase();
+        if (typed.includes('halal')) {
+          document.body.style.background = 'linear-gradient(135deg, #1abc9c, #3498db)';
+          document.querySelectorAll('.glass-card').forEach(card => {
+            card.style.background = 'rgba(26, 188, 156, 0.1)';
+            card.style.borderColor = '#3498db';
+          });
+          document.querySelectorAll('h2').forEach(h => h.style.color = '#1abc9c');
+          alert('🕌 Halal mode engaged! Shariah-compliant browsing activated.');
+          typed = '';
+        }
+      });
+
+      // Token animation
+      const tokens = document.querySelectorAll('.token');
+      tokens.forEach((token, i) => {
+        token.style.animation = `float ${3 + i}s ease-in-out infinite`;
+      });
+
+      // Particle canvas
+      const canvas = document.getElementById('zigCanvas');
+      const ctx = canvas.getContext('2d');
+      let w, h, particles = [];
+      
+      function resize() {
+        w = canvas.width = innerWidth;
+        h = canvas.height = canvas.offsetHeight;
+      }
+      
+      window.addEventListener('resize', resize);
+      resize();
+      
+      class Particle {
+        constructor() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.vx = (Math.random() - 0.5) * 0.4;
+          this.vy = (Math.random() - 0.5) * 0.4;
+          this.r = Math.random() * 1.2 + 0.5;
+        }
+        
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(241,196,15,0.4)';
+          ctx.fill();
+        }
+        
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > w) this.vx *= -1;
+          if (this.y < 0 || this.y > h) this.vy *= -1;
+          this.draw();
+        }
+      }
+      
+      for (let i = 0; i < 60; i++) particles.push(new Particle());
+      
+      function animateParticles() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => p.update());
+        requestAnimationFrame(animateParticles);
+      }
+      
+      animateParticles();
+
+      // Matrix rain
+      const m = document.getElementById('matrix');
+      const mCtx = m.getContext('2d');
+      let mW = m.width = innerWidth;
+      let mH = m.height = innerHeight;
+      const fontSize = 5;
+      let cols = Math.floor(mW / fontSize);
+      let drops = Array(cols).fill(1);
+
+      function drawMatrix() {
+        mCtx.fillStyle = 'rgba(10,10,26,0.05)';
+        mCtx.fillRect(0, 0, mW, mH);
+        mCtx.fillStyle = '#00ff41';
+        mCtx.font = fontSize + 'px monospace';
+        
+        for (let i = 0; i < drops.length; i++) {
+          const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+          mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+          if (drops[i] * fontSize > mH && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+      }
+      
+      setInterval(drawMatrix, 23);
+
+      window.addEventListener('resize', () => {
+        mW = m.width = innerWidth;
+        mH = m.height = innerHeight;
+        cols = Math.floor(mW / fontSize);
+        drops = Array(cols).fill(1);
+      });
+
+      // Gas price
+      fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle')
+        .then(r => r.json())
+        .then(d => document.getElementById('gweiLive').textContent = d.result.FastGasPrice);
+      
+      setInterval(() => {
+        fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle')
+          .then(r => r.json())
+          .then(d => document.getElementById('gweiLive').textContent = d.result.FastGasPrice);
+      }, 15000);
+    };
+
+    // Start everything
+    cosmicIntro();
+  </script>
+</body>
+</html>
